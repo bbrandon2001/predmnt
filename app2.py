@@ -94,12 +94,15 @@ scale_pos_weight = (len(y_train) - y_train.sum()) / y_train.sum()
 # Train Model
 # -----------------------------
 model = xgb.XGBClassifier(
-    scale_pos_weight=scale_pos_weight,  #  imbalance fix
+    n_estimators=50,   # ↓ from default 100+
+    max_depth=4,       # smaller trees
+    learning_rate=0.1,
+    scale_pos_weight=scale_pos_weight,
     eval_metric="logloss",
     random_state=42
 )
 
-model.fit(X_train_scaled, y_train)
+model = train_model(X_train_scaled, y_train)
 
 # -----------------------------
 # Predictions (with threshold tuning)
@@ -132,7 +135,7 @@ fig, ax = plt.subplots()
 disp = ConfusionMatrixDisplay(confusion_matrix=cm)
 disp.plot(ax=ax)
 plt.title("Confusion Matrix (Threshold Adjusted)")
-st.pyplot(fig)
+# st.pyplot(fig)
 
 # -----------------------------
 # Feature Importance
