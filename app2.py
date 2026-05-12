@@ -17,7 +17,7 @@ import xgboost as xgb
 # Page Config
 # -----------------------------
 st.set_page_config(page_title="Predictive Maintenance (Improved)", layout="wide")
-st.title("🔧 Predictive Maintenance for CNC Machines (Improved)")
+st.title(" Predictive Maintenance for CNC Machines (Improved)")
 st.write("Enhanced model focused on detecting failures more reliably.")
 
 # -----------------------------
@@ -45,7 +45,7 @@ st.write(data.isnull().sum())
 # -----------------------------
 data = data.drop(columns=["UDI", "Product ID"], errors="ignore")
 
-# ✅ Feature Engineering (historical behavior proxies)
+#  Feature Engineering (historical behavior proxies)
 data["Temp_Diff"] = data["Process temperature [K]"] - data["Air temperature [K]"]
 data["Wear_per_Torque"] = data["Tool wear [min]"] / (data["Torque [Nm]"] + 1)
 
@@ -84,7 +84,7 @@ scale_pos_weight = (len(y_train) - y_train.sum()) / y_train.sum()
 # Train Model
 # -----------------------------
 model = xgb.XGBClassifier(
-    scale_pos_weight=scale_pos_weight,  # ✅ imbalance fix
+    scale_pos_weight=scale_pos_weight,  #  imbalance fix
     eval_metric="logloss",
     random_state=42
 )
@@ -96,7 +96,7 @@ model.fit(X_train_scaled, y_train)
 # -----------------------------
 y_prob = model.predict_proba(X_test_scaled)[:, 1]
 
-# ✅ Lower threshold to catch more failures
+#  Lower threshold to catch more failures
 THRESHOLD = 0.35
 y_pred = (y_prob > THRESHOLD).astype(int)
 
