@@ -137,7 +137,6 @@ input_df = pd.DataFrame({
     "Torque [Nm]": [torque],
     "Tool wear [min]": [tool_wear]
 })
-
 # Match training columns after get_dummies
 input_df = pd.get_dummies(input_df, drop_first=True)
 input_df = input_df.reindex(columns=X.columns, fill_value=0)
