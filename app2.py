@@ -23,8 +23,18 @@ st.write("Enhanced model focused on detecting failures more reliably.")
 # -----------------------------
 # Load Data
 # -----------------------------
-@st.cache_data
-def load_data():
+@st.cache_resource
+def train_model(X_train_scaled, y_train):
+    scale_pos_weight = (len(y_train) - y_train.sum()) / y_train.sum()
+
+    model = xgb.XGBClassifier(
+        scale_pos_weight=scale_pos_weight,
+        eval_metric="logloss",
+        random_state=42
+    )
+    model.fit(X_train_scaled, y_train)
+
+    return model
     return pd.read_csv("predictive_maintenance.csv")
 
 data = load_data()
