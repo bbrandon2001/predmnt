@@ -1,6 +1,6 @@
-streamlit==
-pandas==
-numpy==
-matplotlib==
-scikit-learn==
-xgboost==
+streamlit
+pandas
+numpy
+scikit-learn
+xgboost
+matplotlib
