@@ -100,7 +100,7 @@ threshold = st.slider(
     "Lower threshold = catches more failures (higher recall), but may increase false alarms.",
     min_value=0.05,
     max_value=0.95,
-    value=0.35,
+    value=0.25,
     step=0.01
 )
 
